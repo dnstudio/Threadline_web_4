@@ -25,6 +25,7 @@ import { ValueCard } from "./ui/ValueCard";
 import { AreaItem } from "./ui/AreaItem";
 import { FadeInScroll } from "./ui/FadeInScroll";
 import { Button } from "./ui/Button";
+import { PageFooterCTA } from "./ui/PageFooterCTA";
 
 export default function EmergingDetailsPage({
   onPageChange,
@@ -83,7 +84,7 @@ export default function EmergingDetailsPage({
 
       {/* Ripple/Impact Template */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             What we're seeing
           </SectionLabel>
@@ -116,7 +117,7 @@ export default function EmergingDetailsPage({
 
       {/* Proactive Strategies Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             PROACTIVE STRATEGIES
           </SectionLabel>
@@ -131,16 +132,19 @@ export default function EmergingDetailsPage({
               title="Sensory Cool-down"
               description="Keep overhead lights dim after 7:30 PM. Swap tablets for physical books or audiobooks with calm background narration."
               cornerClass="rounded-[24px]"
+              variant="premium"
             />
             <InsightCard
               title="Energy Outflow"
               description="Promote physical exertion or raw energy release activities before 4:30 PM to clear adrenaline well before bedtime."
               cornerClass="rounded-[24px]"
+              variant="premium"
             />
             <InsightCard
               title="Gentle Observation"
               description="No need to change trackers. Allow natural play routines and check in if you pattern-spot afternoon fatigue."
               cornerClass="rounded-[24px]"
+              variant="premium"
             />
           </div>
         </div>
@@ -158,7 +162,7 @@ export default function EmergingDetailsPage({
         </div>
 
         <div className="mb-24">
-          <div className="mb-5.5">
+          <div>
             <SectionLabel>
               OUR FRAMEWORK
             </SectionLabel>
@@ -183,24 +187,12 @@ export default function EmergingDetailsPage({
       </FadeInScroll>
 
       {/* Footer Nav Template */}
-      <div className="flex items-center justify-between gap-5 border-t border-black/10 pt-7.5 flex-wrap">
-        <Button
-          variant="link"
-          onClick={() => onPageChange("home")}
-          className="text-[0.92rem] font-semibold flex items-center gap-2 border-b-0 pb-0"
-          leftIcon={<ArrowRight className="w-4 h-4 rotate-180" />}
-        >
-          Back to dashboard
-        </Button>
-        <Button
-          onClick={() => onPageChange("priorities")}
-          variant="forest"
-          className="px-5.5 py-3.5 text-[0.92rem]"
-          rightIcon={<ArrowRight className="w-4 h-4 stroke-[2]" />}
-        >
-          See all priorities
-        </Button>
-      </div>
+      <PageFooterCTA
+        buttonText="See all priorities"
+        onClick={() => onPageChange("priorities")}
+        onBackClick={() => onPageChange("home")}
+        backText="Back to dashboard"
+      />
     </motion.div>
   );
 }

@@ -10,6 +10,8 @@ import {
   Palette,
 } from "lucide-react";
 import { Child } from "../types";
+import { Avatar } from "./ui/Avatar";
+import { IconButton } from "./ui/IconButton";
 import { cn } from "../lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -71,9 +73,11 @@ export default function TopBar({
         >
           {currentPage === "all-children" ? (
             <>
-              <div className="w-[30px] h-[30px] rounded-full bg-[var(--color-thread-mid-green)] text-white flex items-center justify-center font-semibold text-[0.82rem] transition-all">
-                <Users className="w-3.5 h-3.5 stroke-[2.2]" />
-              </div>
+              <Avatar
+                size="sm"
+                className="bg-[var(--color-thread-mid-green)] text-white"
+                fallback={<Users className="w-3.5 h-3.5 stroke-[2.2]" />}
+              />
               <div className="flex flex-col text-left leading-none">
                 <span className="font-semibold text-[0.9rem] text-slate-900">
                   All Children
@@ -85,9 +89,11 @@ export default function TopBar({
             </>
           ) : (
             <>
-              <div className="w-[30px] h-[30px] rounded-full bg-[var(--color-thread-mid-green)] text-white flex items-center justify-center font-semibold text-[0.82rem] font-serif">
-                {currentChild.initial}
-              </div>
+              <Avatar
+                size="sm"
+                fallback={currentChild.initial}
+                className="bg-[var(--color-thread-mid-green)] text-white font-serif"
+              />
               <div className="flex flex-col text-left leading-none">
                 <span className="font-semibold text-[0.9rem] text-slate-900">
                   {currentChild.name}
@@ -135,14 +141,15 @@ export default function TopBar({
                   )}
                   id="all-children-dropdown-option"
                 >
-                  <div className={cn(
-                    "w-[34px] h-[34px] rounded-full flex items-center justify-center font-semibold text-[0.86rem] transition-all",
-                    currentPage === "all-children"
-                      ? "bg-[var(--color-thread-mid-green)] text-white"
-                      : "bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)] group-hover/all:bg-[var(--color-thread-mid-green)] group-hover/all:text-white"
-                  )}>
-                    <Users className="w-4 h-4 stroke-[2]" />
-                  </div>
+                  <Avatar
+                    size="md"
+                    className={cn(
+                      currentPage === "all-children"
+                        ? "bg-[var(--color-thread-mid-green)] text-white"
+                        : "bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)] group-hover/all:bg-[var(--color-thread-mid-green)] group-hover/all:text-white"
+                    )}
+                    fallback={<Users className="w-4 h-4 stroke-[2]" />}
+                  />
                   <div className="flex flex-col leading-none">
                     <span className={cn(
                       "text-[0.92rem] tracking-tight font-semibold",
@@ -175,9 +182,11 @@ export default function TopBar({
                         : "hover:bg-slate-50",
                     )}
                   >
-                    <div className="w-[34px] h-[34px] rounded-full bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)] flex items-center justify-center font-semibold text-[0.86rem] font-serif">
-                      {child.initial}
-                    </div>
+                    <Avatar
+                      size="md"
+                      className="bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)] font-serif"
+                      fallback={child.initial}
+                    />
                     <div className="flex flex-col leading-none">
                       <span
                         className={cn(
@@ -220,13 +229,12 @@ export default function TopBar({
 
       <div className="flex gap-3 items-center">
         <div className="relative" ref={alertsRef}>
-          <button
+          <IconButton
             onClick={() => setIsAlertsOpen(!isAlertsOpen)}
-            className="w-10.5 h-10.5 rounded-full bg-white border border-black/10 flex items-center justify-center text-slate-900 relative cursor-pointer hover:border-black/20 transition-all group"
+            hasBadge
           >
-            <span className="absolute top-[10px] right-[11px] w-[7px] h-[7px] rounded-full bg-[var(--color-thread-mid-green)] border-2 border-white shadow-sm" />
             <Bell className="w-[19px] h-[19px] stroke-[1.8]" />
-          </button>
+          </IconButton>
 
           <AnimatePresence>
             {isAlertsOpen && (
@@ -289,12 +297,14 @@ export default function TopBar({
         </div>
 
         <div className="relative" ref={profileRef}>
-          <button
+          <Avatar
+            role="button"
+            tabIndex={0}
             onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-            className="w-10.5 h-10.5 rounded-full bg-[var(--color-thread-mid-green)] text-white flex items-center justify-center font-semibold text-[0.86rem] font-serif cursor-pointer hover:opacity-90 transition-all shadow-sm"
-          >
-            S
-          </button>
+            size="lg"
+            className="cursor-pointer hover:opacity-90 font-serif bg-[var(--color-thread-mid-green)] text-white shadow-sm"
+            fallback="S"
+          />
 
           <AnimatePresence>
             {isProfileMenuOpen && (

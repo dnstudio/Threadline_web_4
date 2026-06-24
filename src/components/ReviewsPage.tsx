@@ -31,6 +31,8 @@ import { SectionDescription } from "./ui/SectionDescription";
 import { FadeInScroll } from "./ui/FadeInScroll";
 import { TimelineStep } from "./ui/TimelineStep";
 import { Button } from "./ui/Button";
+import { AreaItem } from "./ui/AreaItem";
+import { PageFooterCTA } from "./ui/PageFooterCTA";
 
 const data = [
   { name: "14 Jun", value: 165 },
@@ -125,7 +127,7 @@ export default function ReviewsPage({
 
       {/* Progress Chart Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel className="mb-2">
             Progress over time
           </SectionLabel>
@@ -214,7 +216,7 @@ export default function ReviewsPage({
       <FadeInScroll className="mb-24">
         <div className="bg-watercolor rounded-br-[36px] p-7.5">
           <div className="bg-white rounded-bl-[32px] p-7.5 shadow-premium">
-            <div className="mb-5.5">
+            <div>
               <SectionLabel>
                 What's changed
               </SectionLabel>
@@ -225,48 +227,48 @@ export default function ReviewsPage({
             <div className="border-b border-black/10">
               {isLiam ? (
                 <>
-                  <TrendItem
+                  <AreaItem
                     title="Self-Correction"
-                    note="Fully independent in most social contexts."
+                    description="Fully independent in most social contexts."
                     status="Complete"
                     icon={<Check className="w-3 h-3 stroke-[2.4]" />}
                   />
-                  <TrendItem
+                  <AreaItem
                     title="Task Endurance"
-                    note="Extended engagement is now a stable characteristic."
+                    description="Extended engagement is now a stable characteristic."
                     status="Complete"
                     icon={<Check className="w-3 h-3 stroke-[2.4]" />}
                   />
-                  <TrendItem
+                  <AreaItem
                     title="Social Connection"
-                    note="Emerging as a peer leader in school creative projects."
+                    description="Emerging as a peer leader in school creative projects."
                     status="Strength"
                     icon={<ArrowUpRight className="w-3 h-3 stroke-[2.4]" />}
                   />
                 </>
               ) : (
                 <>
-                  <TrendItem
+                  <AreaItem
                     title="Classroom attention"
-                    note="Focus in class is improving as the strategies take hold."
+                    description="Focus in class is improving as the strategies take hold."
                     status="Improving"
                     icon={<ArrowUpRight className="w-3 h-3 stroke-[2.4]" />}
                   />
-                  <TrendItem
+                  <AreaItem
                     title="Emotional regulation at home"
-                    note="Holding steady — likely to ease further as attention improves."
+                    description="Holding steady — likely to ease further as attention improves."
                     status="Steady"
                     icon={<Minus className="w-3 h-3 stroke-[2.4]" />}
                   />
-                  <TrendItem
+                  <AreaItem
                     title="Sleep"
-                    note="A new signal since the assessment — now on the watchlist."
+                    description="A new signal since the assessment — now on the watchlist."
                     status="Emerging"
                     icon={<Plus className="w-3 h-3 stroke-[2.4]" />}
                   />
-                  <TrendItem
+                  <AreaItem
                     title="Friendships & social connection"
-                    note="Still going well — no change needed."
+                    description="Still going well — no change needed."
                     status="Strength"
                     icon={<Check className="w-3 h-3 stroke-[2.4]" />}
                   />
@@ -279,7 +281,7 @@ export default function ReviewsPage({
 
       {/* Review Rhythm Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             Your review rhythm
           </SectionLabel>
@@ -318,51 +320,12 @@ export default function ReviewsPage({
       </FadeInScroll>
 
       {/* Forward Button */}
-      <div className="flex items-center justify-between gap-5 border-t border-black/10 pt-7.5 flex-wrap">
-        <div className="font-serif font-normal text-[1.55rem] leading-[1.34] tracking-tight text-[var(--color-thread-heading)] max-w-[24ch]">
-          This is the loop that keeps your clarity current.
-        </div>
-        <Button
-          onClick={() => onPageChange("home")}
-          variant="forest"
-          className="px-5.5 py-3.5 text-[0.92rem] inline-flex items-center gap-2"
-        >
-          Back to today's focus <Check className="w-4 h-4 stroke-[2]" />
-        </Button>
-      </div>
+      <PageFooterCTA
+        title="This is the loop that keeps your clarity current."
+        buttonText="Back to today's focus"
+        buttonIcon={<Check className="w-4 h-4 stroke-[2]" />}
+        onClick={() => onPageChange("home")}
+      />
     </motion.div>
   );
 }
-
-function TrendItem({ title, note, status, icon }: any) {
-  return (
-    <div className="border-t border-[var(--color-thread-light-gray)] py-4.5 px-0.5 flex items-center gap-4.5">
-      <div className="flex-1 min-w-0">
-        <div className="text-[1.08rem] font-medium tracking-tight text-[var(--color-thread-dark-slate)] truncate">
-          {title}
-        </div>
-        <div className="text-[0.84rem] text-[var(--color-thread-gray)] mt-0.75 leading-relaxed">
-          {note}
-        </div>
-      </div>
-      <span
-        className={cn(
-          "flex-shrink-0 text-[0.6rem] tracking-[0.1em] uppercase font-bold px-2.75 py-1.5 rounded-full flex items-center gap-1.5 whitespace-nowrap",
-          status === "Improving" &&
-            "bg-[var(--color-thread-mid-green)] text-white",
-          status === "Steady" &&
-            "bg-[var(--color-thread-off-white)] text-[var(--color-thread-gray)] border border-black/10",
-          status === "Emerging" &&
-            "bg-[var(--color-thread-cream)] text-[var(--color-thread-darkest)]",
-          status === "Strength" &&
-            "bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)]",
-        )}
-      >
-        {icon}
-        {status}
-      </span>
-    </div>
-  );
-}
-
-

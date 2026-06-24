@@ -4,6 +4,8 @@ import { Child } from "../types";
 import { cn } from "../lib/utils";
 import { useState } from "react";
 import { Input } from "./ui/Input";
+import { Button } from "./ui/Button";
+import { Switch } from "./ui/Switch";
 
 interface SettingsPageProps {
   onPageChange: (page: any) => void;
@@ -86,31 +88,21 @@ export default function SettingsPage({
               <span className="text-[0.85rem] text-slate-700 font-medium">
                 Receive email notifications
               </span>
-              <button
-                onClick={() => setReceiveNotifications(!receiveNotifications)}
-                className={cn(
-                  "w-[42px] h-[24px] rounded-full transition-colors relative cursor-pointer",
-                  receiveNotifications ? "bg-[var(--color-thread-mid-green)]" : "bg-black/10",
-                )}
-              >
-                <div
-                  className={cn(
-                    "w-[18px] h-[18px] bg-white rounded-full absolute top-[3px] transition-all shadow-sm",
-                    receiveNotifications ? "left-[21px]" : "left-[3px]",
-                  )}
-                />
-              </button>
+              <Switch
+                checked={receiveNotifications}
+                onCheckedChange={setReceiveNotifications}
+              />
             </div>
 
             <div className="flex justify-start pt-2 pb-1">
-              <button className="text-[0.84rem] font-semibold text-slate-500 hover:text-slate-900 transition-colors">
+              <Button variant="link" className="px-0 py-0 text-slate-500 hover:text-slate-900 border-none hover:opacity-100">
                 Manage notification preferences
-              </button>
+              </Button>
             </div>
           </div>
-          <button className="bg-slate-900 text-white text-[0.9rem] font-semibold px-6 py-3 rounded-full hover:bg-slate-800 transition-colors">
+          <Button variant="slate">
             Save Parent Profile
-          </button>
+          </Button>
         </div>
       </div>
 

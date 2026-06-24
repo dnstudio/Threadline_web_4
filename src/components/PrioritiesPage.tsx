@@ -15,6 +15,9 @@ import { ListItemCard } from "./ui/ListItemCard";
 import { FadeInScroll } from "./ui/FadeInScroll";
 import { ActionLink } from "./ui/ActionLink";
 import { Button } from "./ui/Button";
+import { TimelineItem } from "./ui/TimelineItem";
+import { PriorityCard } from "./ui/PriorityCard";
+import { PageFooterCTA } from "./ui/PageFooterCTA";
 
 export default function PrioritiesPage({
   onPageChange,
@@ -35,7 +38,7 @@ export default function PrioritiesPage({
         kicker="Priorities · What matters most"
         title="Where to focus — and why."
         titleClassName="text-[4rem] leading-[4.5rem] max-w-[16ch]"
-        className="mb-24"
+        className="mb-28"
         description={
           <div className="flex gap-4.5 text-[0.82rem] text-[var(--color-thread-gray)] flex-wrap">
             <span className="flex items-center gap-1.5">
@@ -83,7 +86,7 @@ export default function PrioritiesPage({
       </FadeInScroll>
 
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             Now · Next · Later
           </SectionLabel>
@@ -109,6 +112,7 @@ export default function PrioritiesPage({
                 dependency="This success allows us to move towards <strong>Advanced Creative Depth</strong>."
                 progress={100}
                 active
+                isCollapsible={false}
               />
               <TimelineItem
                 tag="Done"
@@ -122,6 +126,7 @@ export default function PrioritiesPage({
                 }}
                 dependency="Liam is ready for <strong>Peer Leadership</strong> roles in small group settings."
                 progress={100}
+                isCollapsible={false}
               />
             </>
           ) : (
@@ -140,6 +145,7 @@ export default function PrioritiesPage({
                 dependency="Progress here should also ease <strong>Emotional regulation</strong> and <strong>school participation</strong>."
                 progress={35}
                 active
+                isCollapsible={false}
               />
               <TimelineItem
                 tag="Next"
@@ -154,6 +160,7 @@ export default function PrioritiesPage({
                 }}
                 dependency="Linked to <strong>Classroom attention</strong> — we'll revisit this as that improves."
                 progress={15}
+                isCollapsible={false}
               />
               <TimelineItem
                 tag="Later"
@@ -166,6 +173,7 @@ export default function PrioritiesPage({
                 }}
                 dependency="We'll surface this again if anything changes."
                 progress={0}
+                isCollapsible={false}
               />
             </>
           )}
@@ -175,15 +183,15 @@ export default function PrioritiesPage({
 
       {/* Connect Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             How these connect
           </SectionLabel>
-          <SectionTitle className="mb-10">
+          <SectionTitle>
             Priorities aren't independent.
           </SectionTitle>
         </div>
-        <div className="flex items-center gap-2.5 max-md:flex-col max-md:items-stretch mb-4.5 mt-2 w-full">
+        <div className="flex items-center gap-2.5 max-md:flex-col max-md:items-stretch mb-4.5 w-full">
           <ListItemCard>Sleep</ListItemCard>
           <ListItemCard>Attention</ListItemCard>
           <ListItemCard>Emotional regulation</ListItemCard>
@@ -244,7 +252,7 @@ export default function PrioritiesPage({
         <SectionLabel className="mb-3">
           On the watchlist
         </SectionLabel>
-        <SectionTitle className="mb-6 relative">
+        <SectionTitle className="relative">
           Sleep
         </SectionTitle>
         <SectionDescription className="relative">
@@ -255,163 +263,11 @@ export default function PrioritiesPage({
       </FadeInScroll>
 
       {/* Forward Button */}
-      <div className="flex items-center justify-between gap-5 border-t border-black/10 pt-7.5 flex-wrap">
-        <div className="font-serif font-normal text-[1.55rem] leading-[1.34] tracking-tight text-[var(--color-thread-heading)] max-w-[24ch]">
-          Now you know what matters most.
-        </div>
-        <Button
-          onClick={() => onPageChange("roadmap")}
-          variant="forest"
-          className="px-5.5 py-3.5 text-[0.92rem] inline-flex items-center gap-2"
-        >
-          See what to do <ArrowRight className="w-4 h-4 stroke-[2]" />
-        </Button>
-      </div>
+      <PageFooterCTA
+        title="Now you know what matters most."
+        buttonText="See what to do"
+        onClick={() => onPageChange("roadmap")}
+      />
     </motion.div>
   );
 }
-
-function TimelineItem({
-  tag,
-  title,
-  meta,
-  content,
-  facts = {},
-  dependency,
-  progress = 0,
-  active = false,
-}: any) {
-  // Accordion is always open and not toggleable as per feedback
-  return (
-    <div
-      className={cn(
-        "border-t border-black/10 transition-all"
-      )}
-    >
-      <div className="flex items-center gap-4 py-5.5 px-1">
-        <span
-          className={cn(
-            "text-[0.75rem] tracking-[0.1em] font-medium w-12 flex-shrink-0 uppercase",
-            active
-              ? "text-[var(--color-thread-mid-green)]"
-              : "text-[var(--color-thread-placeholder)]",
-          )}
-        >
-          {tag}
-        </span>
-        <div className="flex-1">
-          <div
-            className={cn(
-              "text-[1.18rem] font-medium tracking-tight",
-              active
-                ? "text-[var(--color-thread-heading)]"
-                : "text-[var(--color-thread-dark-slate)]",
-            )}
-          >
-            {title}
-            <div className="text-[0.8rem] text-[var(--color-thread-gray)] font-normal mt-0.5 tracking-normal">
-              {meta}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="overflow-hidden transition-all duration-300 opacity-100">
-        <div className="px-16 pb-12 max-md:px-2">
-          <div className="grid grid-cols-1 gap-12">
-            <div className="grid grid-cols-[1fr,1fr] gap-12 max-lg:grid-cols-1 max-lg:gap-8">
-              <div className="space-y-6">
-                <div>
-                  <span className="text-[0.6rem] tracking-[0.14em] uppercase text-slate-500 font-semibold mb-2 block">
-                    Why This matter the most
-                  </span>
-                  <p className="text-[0.96rem] text-slate-500 leading-relaxed">
-                    {content}
-                  </p>
-                </div>
-
-                {dependency && (
-                  <div className="text-[0.88rem] flex items-center gap-2.5 text-slate-500 leading-tight">
-                    <ArrowRight className="w-[15px] h-[15px] flex-shrink-0 stroke-[2] text-[var(--color-thread-placeholder)]" />
-                    <span dangerouslySetInnerHTML={{ __html: dependency }} />
-                  </div>
-                )}
-              </div>
-
-              <div className="bg-white p-6 rounded-none rounded-tr-[36px] h-fit shadow-premium-light">
-                <span className="text-[0.6rem] tracking-[0.14em] uppercase text-slate-500 font-semibold mb-3 block">
-                  Clinical weighting
-                </span>
-                <div className="grid grid-cols-2 gap-x-12 gap-y-1">
-                  {Object.entries(facts).map(([label, value]) => (
-                    <FactRow key={label} label={label} value={value as string} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 pt-3.5 flex items-center justify-between">
-            <span className="text-[0.78rem] text-slate-500 font-medium">
-              Plan Progress: {progress}%
-            </span>
-            <ActionLink variant="slate" as="span">
-              See details
-            </ActionLink>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PriorityCard({
-  tag,
-  title,
-  meta,
-  why,
-  facts = {},
-  dependency,
-  cornerClass = "rounded-[20px]",
-}: any) {
-  return (
-    <div
-      className={cn(
-        "relative bg-white p-7.5 mb-4.5 overflow-hidden",
-        cornerClass,
-      )}
-    >
-      <div className="flex gap-3.5 items-start mb-4 relative">
-        <span className="text-[0.75rem] tracking-[0.1em] uppercase font-medium px-4 py-2 rounded-full bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)] flex-shrink-0 mt-1">
-          {tag}
-        </span>
-        <div className="flex-1">
-          <div className="font-sans font-medium text-[1.22rem] tracking-tight text-[var(--color-thread-dark-slate)] mb-1">
-            {title}
-          </div>
-          <div className="text-[0.82rem] text-[var(--color-thread-gray)]">
-            {meta}
-          </div>
-        </div>
-      </div>
-      <SectionDescription className="mb-5 relative">
-        {why}
-      </SectionDescription>
-      <div className="bg-[var(--color-thread-off-white)] rounded-[20px] px-5.5 py-4 mb-4.5 relative">
-        <SectionLabel className="mb-2">
-          {tag === "Next" ? "Why it ranks here" : "Why it can wait"}
-        </SectionLabel>
-        <div className="grid grid-cols-2 gap-x-9 max-md:grid-cols-1">
-          {facts && Object.entries(facts).map(([k, v]) => (
-            <FactRow key={k} label={k} value={v as string} />
-          ))}
-        </div>
-      </div>
-      <div className="text-[0.88rem] flex items-center gap-2.5 text-[var(--color-thread-gray)] leading-tight relative">
-        <ArrowRight className="w-[15px] h-[15px] flex-shrink-0 stroke-[2] text-[var(--color-thread-placeholder)]" />
-        <span dangerouslySetInnerHTML={{ __html: dependency }} />
-      </div>
-    </div>
-  );
-}
-
-

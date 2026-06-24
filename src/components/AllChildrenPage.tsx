@@ -8,6 +8,8 @@ import { PageHeader } from "./ui/PageHeader";
 import { EvidenceBadge } from "./ui/EvidenceBadge";
 import { ActionLink } from "./ui/ActionLink";
 import { Button } from "./ui/Button";
+import { PlanProgressCard } from "./ui/PlanProgressCard";
+import { HeroQuoteCard } from "./ui/HeroQuoteCard";
 
 interface AllChildrenPageProps {
   onPageChange: (page: Page) => void;
@@ -85,6 +87,7 @@ export default function AllChildrenPage({
         title="All Children at a glance."
         description="Monitor your family's dynamic clinical profiles and milestones side-by-side. Use any profile card to dive directly into detailed assessments."
         titleClassName="text-[3.8rem] leading-[4.3rem]"
+        className="mb-28"
       />
 
       <div className="flex flex-col gap-16">
@@ -134,51 +137,16 @@ export default function AllChildrenPage({
               <div className="grid grid-cols-[1.5fr_1fr] md:gap-x-8 max-md:grid-cols-1 max-md:gap-y-8">
                 
                 {/* Dynamic Synthesis Card */}
-                <div
-                  className={cn(
-                    "relative p-8 rounded-tr-[36px] overflow-hidden flex flex-col justify-between h-[300px] transition-shadow",
-                    isGreenTheme 
-                      ? "bg-[var(--color-thread-mid-green)] text-white" 
-                      : "bg-[var(--hero-bg)] text-[var(--color-thread-dark-slate)]"
-                  )}
+                <HeroQuoteCard
                   id={`synthesis-card-${child.name.toLowerCase()}`}
-                >
-                  {/* Decorative Background Rings */}
-                  <svg
-                    className={cn(
-                      "absolute -right-16 -bottom-20 pointer-events-none transition-opacity",
-                      isGreenTheme ? "text-white/10" : "text-[var(--color-thread-mid-green)]/5"
-                    )}
-                    width="260"
-                    height="260"
-                  >
-                    <circle cx="130" cy="130" r="48" fill="none" stroke="currentColor" strokeWidth="1" />
-                    <circle cx="130" cy="130" r="80" fill="none" stroke="currentColor" strokeWidth="1" />
-                    <circle cx="130" cy="130" r="114" fill="none" stroke="currentColor" strokeWidth="1" />
-                  </svg>
-
-                  <div className="relative">
-                    <span
-                      className={cn(
-                        "text-[0.68rem] tracking-[0.12em] uppercase font-bold mb-4 block",
-                        isGreenTheme ? "text-emerald-200" : "text-[var(--color-thread-mid-green)]"
-                      )}
-                    >
-                      Clinician Synthesis Summary
-                    </span>
-                    <p className="font-serif font-normal text-[1.38rem] leading-[1.4] tracking-tight max-w-[34ch]">
-                      "{childData.quote}"
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-auto relative">
-                    <EvidenceBadge
-                      level={childData.evidenceLevel}
-                      label="Strong formulation"
-                      variant={isGreenTheme ? 'green' : 'default'}
-                      labelClassName={cn("text-[0.68rem] tracking-[0.06em] font-bold", isGreenTheme ? "text-emerald-100" : "text-slate-400")}
-                    />
-
+                  variant={isGreenTheme ? "green" : "default"}
+                  className="h-[300px] p-8"
+                  kicker="Clinician Synthesis Summary"
+                  quote={childData.quote}
+                  evidenceLevel={childData.evidenceLevel}
+                  evidenceText="Strong formulation"
+                  evidenceVariant={isGreenTheme ? 'green' : 'default'}
+                  action={
                     <Button
                       onClick={() => {
                         onChildChange(child);
@@ -189,51 +157,20 @@ export default function AllChildrenPage({
                     >
                       Open Insights
                     </Button>
-                  </div>
-                </div>
+                  }
+                />
 
                 {/* Quarter Plan Card */}
                 <div
-                  className="bg-[var(--hero-secondary-bg)] text-[var(--hero-secondary-text)] rounded-bl-[32px] p-7.5 flex flex-col justify-between h-[300px] transition-shadow relative"
+                  className="h-[300px]"
                   id={`plan-card-${child.name.toLowerCase()}`}
                 >
-                  <div>
-                    <span className="text-[0.68rem] tracking-[0.12em] uppercase opacity-75 font-bold mb-5 block">
-                      This Quarter's Plan Progress
-                    </span>
-                    
-                    <div className="flex items-end gap-3.5 mb-2 mt-4">
-                      <div className="font-serif text-[3.6rem] leading-none tracking-[-1.5px] font-normal">
-                        {childData.progress}%
-                      </div>
-                      <div className="text-[0.98rem] opacity-90 leading-snug pb-1 flex flex-col">
-                        <span>on track</span>
-                        <span className="opacity-75 text-[0.82rem]">{childData.progressText}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col mt-auto w-full">
-                    <div className="mb-5">
-                      <ProgressBar
-                        value={childData.progress}
-                        max={100}
-                        heightClass="h-2.5"
-                        isSecondary
-                        colorClass="bg-[var(--hero-secondary-text)]"
-                      />
-                    </div>
-                    
-                    <div className="flex items-center gap-2 text-[0.8rem] opacity-75 border-t border-current/10 pt-4">
-                      <Calendar className="w-4 h-4 stroke-[1.8]" />
-                      <span>
-                        Next clinical review:{" "}
-                        <strong className="font-semibold ml-1">
-                          {childData.nextReview}
-                        </strong>
-                      </span>
-                    </div>
-                  </div>
+                  <PlanProgressCard
+                    progress={childData.progress}
+                    statusText={childData.progressText}
+                    nextReview={childData.nextReview}
+                    className="rounded-bl-[32px]"
+                  />
                 </div>
 
               </div>

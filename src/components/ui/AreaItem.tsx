@@ -5,13 +5,15 @@ import { EvidenceBadge } from './EvidenceBadge';
 interface AreaItemProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   impact?: string;
-  evidence: number;
+  evidence?: number;
+  status?: string;
+  icon?: React.ReactNode;
   description: string | React.ReactNode;
-  sources: string[];
+  sources?: string[];
 }
 
 export const AreaItem = React.forwardRef<HTMLDivElement, AreaItemProps>(
-  ({ className, title, impact = "", evidence, description, sources, ...props }, ref) => {
+  ({ className, title, impact = "", evidence, status, icon, description, sources, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -30,13 +32,33 @@ export const AreaItem = React.forwardRef<HTMLDivElement, AreaItemProps>(
             )}
           </div>
           <div className="flex flex-col items-end flex-shrink-0 pt-1">
-            <EvidenceBadge
-              level={evidence}
-              layout="col"
-              align="end"
-              variant="default"
-              labelClassName="font-semibold"
-            />
+            {evidence !== undefined && (
+              <EvidenceBadge
+                level={evidence}
+                layout="col"
+                align="end"
+                variant="default"
+                labelClassName="font-semibold"
+              />
+            )}
+            {status && (
+              <span
+                className={cn(
+                  "text-[0.6rem] tracking-[0.1em] uppercase font-bold px-2.75 py-1.5 rounded-full flex items-center gap-1.5 whitespace-nowrap mt-0.75",
+                  (status === "Suggested" || status === "Strength" || status === "Complete") &&
+                    "bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)]",
+                  (status === "Optional" || status === "Steady") &&
+                    "bg-[var(--color-thread-off-white)] text-[var(--color-thread-gray)] border border-black/10",
+                  (status === "In place" || status === "Improving") &&
+                    "bg-[var(--color-thread-mid-green)] text-white",
+                  status === "Emerging" &&
+                    "bg-[var(--color-thread-cream)] text-[var(--color-thread-darkest)]",
+                )}
+              >
+                {icon}
+                {status}
+              </span>
+            )}
           </div>
         </div>
         

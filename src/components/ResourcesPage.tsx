@@ -14,6 +14,10 @@ import { ListItemCard } from "./ui/ListItemCard";
 import { FadeInScroll } from "./ui/FadeInScroll";
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
+import { FilterTab } from "./ui/FilterTab";
+import { GuideCard } from "./ui/GuideCard";
+import { LockerItem } from "./ui/LockerItem";
+import { HeroQuoteCard } from "./ui/HeroQuoteCard";
 
 import img2912 from "../assets/images/IMG_2912.jpeg";
 import img2947 from "../assets/images/IMG_2947.jpeg";
@@ -96,7 +100,7 @@ export default function ResourcesPage({ currentChild }: { currentChild: any }) {
       className="max-w-[1000px] mx-auto pt-16 px-11 pb-16 max-md:px-5"
     >
       <div className="mb-24">
-        <span className="text-[0.66rem] tracking-[0.2em] uppercase text-slate-500 font-semibold mb-4 block">
+        <span className="text-[0.66rem] tracking-[0.2em] uppercase text-slate-500 font-semibold mb-6 block">
           Resource library · Clinical-grade guidance
         </span>
         <h1 className="font-semibold text-4xl tracking-tighter leading-[1.08] max-w-[16ch]">
@@ -112,65 +116,28 @@ export default function ResourcesPage({ currentChild }: { currentChild: any }) {
         </div>
       </div>
 
-      <FadeInScroll
-        className="relative bg-[var(--hero-bg)] text-[var(--hero-text)] rounded-tr-[36px] p-10 overflow-hidden mb-24 transition-all"
-      >
-        <svg
-          className="absolute -right-[100px] -bottom-[130px] pointer-events-none"
-          style={{ opacity: 'var(--hero-ring-opacity)' }}
-          width="340"
-          height="340"
-        >
-          <circle
-            cx="170"
-            cy="170"
-            r="64"
-            fill="none"
-            stroke="currentColor"
-            strokeOpacity="1"
-            strokeWidth="1"
-          />
-          <circle
-            cx="170"
-            cy="170"
-            r="112"
-            fill="none"
-            stroke="currentColor"
-            strokeOpacity="1"
-            strokeWidth="1"
-          />
-          <circle
-            cx="170"
-            cy="170"
-            r="160"
-            fill="none"
-            stroke="currentColor"
-            strokeOpacity="1"
-            strokeWidth="1"
-          />
-        </svg>
-
-        <span className="text-[0.66rem] tracking-[0.2em] uppercase text-[var(--hero-accent)] font-semibold mb-4.5 block">
-          Featured guide
-        </span>
-        <p className="font-serif font-normal text-[1.55rem] leading-[1.34] tracking-tight max-w-[30ch] relative">
-          {isLiam ? "Fostering long-term developmental velocity." : "Starting the upcoming school term with confidence."}
-        </p>
-        <p className="text-[1rem] opacity-70 leading-relaxed max-w-[54ch] mt-3.5 relative">
-          {isLiam ? (
+      <HeroQuoteCard
+        kicker="Featured guide"
+        quote={isLiam ? "Fostering long-term developmental velocity." : "Starting the upcoming school term with confidence."}
+        showQuotes={false}
+        className="mb-24"
+        description={
+          isLiam ? (
             `Advanced strategies for ${currentChild.name} to generalise his social integration wins into diverse, unstructured environments.`
           ) : (
             `Strategies to manage ADHD-linked morning fatigue and prepare sensory transitions before ${currentChild.name} steps into the new classroom.`
-          )}
-        </p>
-        <Button
-          variant="mint"
-          className="mt-6 relative"
-          rightIcon={<ChevronRight className="w-3.5 h-3.5 stroke-[2]" />}
-        >
-          Read article
-        </Button>
-      </FadeInScroll>
+          )
+        }
+        action={
+          <Button
+            variant="mint"
+            className="relative"
+            rightIcon={<ChevronRight className="w-3.5 h-3.5 stroke-[2]" />}
+          >
+            Read article
+          </Button>
+        }
+      />
 
       {/* Modules Section */}
       <FadeInScroll className="mb-24">
@@ -320,93 +287,5 @@ export default function ResourcesPage({ currentChild }: { currentChild: any }) {
         </div>
       </FadeInScroll>
     </motion.div>
-  );
-}
-
-function FilterTab({ label, active, onClick }: any) {
-  return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "px-4 py-2 rounded-full text-[0.84rem] font-medium border border-black/10 transition-all cursor-pointer",
-        active
-          ? "bg-[var(--color-thread-mid-green)] text-white border-[var(--color-thread-mid-green)]"
-          : "bg-white text-slate-500 hover:text-slate-900 hover:border-[var(--color-thread-mid-green)]",
-      )}
-    >
-      {label}
-    </button>
-  );
-}
-
-function GuideCard({
-  category,
-  title,
-  description,
-  readTime,
-  image,
-  cornerClass = "rounded-tr-[32px]",
-}: any) {
-  return (
-    <div
-      className={cn(
-        "bg-white flex flex-col cursor-pointer transition-all group overflow-hidden shadow-sm hover:shadow-md hover:scale-[1.01]",
-        cornerClass,
-      )}
-    >
-      {image && (
-        <div className="w-full aspect-[16/9] overflow-hidden relative">
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-      )}
-      <div className="p-6 flex flex-col flex-1">
-        <span className="text-[0.58rem] tracking-[0.14em] uppercase text-[var(--color-thread-mid-green)] font-bold mb-3 font-sans">
-          {category}
-        </span>
-        <h3 className="text-[1.18rem] font-semibold tracking-tight leading-tight mb-2 text-slate-900 font-sans">
-          {title}
-        </h3>
-        <p className="text-[0.9rem] text-slate-500 leading-relaxed flex-1 font-sans">
-          {description}
-        </p>
-        <div className="flex items-center justify-between pt-4 mt-8">
-          <span className="text-[0.78rem] text-slate-400 font-sans">{readTime}</span>
-          <ActionLink variant="slate" as="span" className="group-hover:text-[var(--color-thread-mid-green)]">
-            Read guide
-          </ActionLink>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LockerItem({
-  icon,
-  title,
-  description,
-  action,
-  cornerClass = "rounded-[18px]",
-}: any) {
-  return (
-    <div className={cn("bg-white p-6 flex flex-col shadow-sm hover:shadow-md transition-all", cornerClass)}>
-      <div className="w-[38px] h-[38px] rounded-[10px] bg-[var(--color-thread-light-green)]/60 text-[var(--color-thread-muted-green)] flex items-center justify-center mb-3.5">
-        {icon}
-      </div>
-      <h3 className="text-[1.02rem] font-semibold tracking-tight mb-1.75 text-slate-900 leading-tight">
-        {title}
-      </h3>
-      <p className="text-[0.86rem] text-slate-500 leading-relaxed mb-3.5">
-        {description}
-      </p>
-      <div className="mt-auto pt-2">
-        <ActionLink variant="default" as="button" className="hover:opacity-70">
-          {action}
-        </ActionLink>
-      </div>
-    </div>
   );
 }

@@ -17,7 +17,7 @@ export const FadeInScroll = React.forwardRef<HTMLDivElement, FadeInScrollProps>(
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.6, ease: 'easeOut', delay }}
         className={className}
-        {...props}
+        {...(props as any)}
       >
         {children}
       </motion.div>

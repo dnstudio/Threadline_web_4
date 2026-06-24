@@ -13,7 +13,7 @@ interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(
   ({ className, kicker, title, description, action, titleClassName, kickerClassName, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn('mb-16', className)} {...props}>
+      <div ref={ref} className={cn('mb-24', className)} {...props}>
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="flex-1">
             {kicker && (

@@ -21,6 +21,8 @@ import { SectionDescription } from "./ui/SectionDescription";
 import { FadeInScroll } from "./ui/FadeInScroll";
 import { TimelineStep } from "./ui/TimelineStep";
 import { Button } from "./ui/Button";
+import { AreaItem } from "./ui/AreaItem";
+import { PageFooterCTA } from "./ui/PageFooterCTA";
 
 export default function RoadmapPage({
   onPageChange,
@@ -84,7 +86,7 @@ export default function RoadmapPage({
 
       {/* Next Actions Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             Recommended next actions
           </SectionLabel>
@@ -151,7 +153,7 @@ export default function RoadmapPage({
 
       {/* Strategies Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             Strategies that help
           </SectionLabel>
@@ -198,7 +200,7 @@ export default function RoadmapPage({
 
       {/* Supports Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             Supports worth exploring
           </SectionLabel>
@@ -215,17 +217,17 @@ export default function RoadmapPage({
         </SectionDescription>
 
         <div className="border-b border-black/10">
-          <SupportingRef
+          <AreaItem
             title={isLiam ? "Leadership mentorship" : "School support plan"}
             description={isLiam ? "Connecting Liam with older student mentors to foster leadership skills." : "Formalise the classroom accommodations so they hold steady across teachers and terms."}
             status={isLiam ? "Suggested" : "Suggested"}
           />
-          <SupportingRef
+          <AreaItem
             title={isLiam ? "Creative Logic Course" : "Occupational therapy — focus & regulation"}
             description={isLiam ? "External curriculum to keep Liam's high creative retention challenged." : "Worth considering if the home strategies need more hands-on support down the track."}
             status={isLiam ? "Optional" : "Optional"}
           />
-          <SupportingRef
+          <AreaItem
             title={isLiam ? "Annual Review" : "GP / paediatric review"}
             description={isLiam ? "Scheduled baseline check to ensure maintenance phase remains stable." : "Keep your GP in the loop so medical options can be discussed if and when they're relevant."}
             status="In place"
@@ -234,18 +236,11 @@ export default function RoadmapPage({
       </FadeInScroll>
 
       {/* Forward Button */}
-      <div className="flex items-center justify-between gap-5 border-t border-black/10 pt-7.5 flex-wrap">
-        <div className="font-serif font-normal text-[1.55rem] leading-[1.34] tracking-tight text-[var(--color-thread-heading)] max-w-[24ch]">
-          A plan only works if you track it.
-        </div>
-        <Button
-          onClick={() => onPageChange("reviews")}
-          variant="forest"
-          className="px-5.5 py-3.5 text-[0.92rem] inline-flex items-center gap-2"
-        >
-          See how it's going <ArrowRight className="w-4 h-4 stroke-[2]" />
-        </Button>
-      </div>
+      <PageFooterCTA
+        title="A plan only works if you track it."
+        buttonText="See how it's going"
+        onClick={() => onPageChange("reviews")}
+      />
     </motion.div>
   );
 }
@@ -287,34 +282,6 @@ function StrategyCard({
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function SupportingRef({ title, description, status }: any) {
-  return (
-    <div className="border-t border-[var(--color-thread-light-gray)] py-5 px-0.5 flex items-start justify-between gap-4.5">
-      <div className="flex-1">
-        <div className="text-[1.08rem] font-medium tracking-tight text-[var(--color-thread-dark-slate)]">
-          {title}
-        </div>
-        <div className="text-[0.88rem] text-[var(--color-thread-gray)] mt-1 leading-relaxed max-w-[56ch]">
-          {description}
-        </div>
-      </div>
-      <span
-        className={cn(
-          "flex-shrink-0 text-[0.6rem] tracking-[0.1em] uppercase font-bold px-2.75 py-1.5 rounded-full whitespace-nowrap mt-0.75",
-          status === "Suggested" &&
-            "bg-[var(--color-thread-light-green)] text-[var(--color-thread-mid-green)]",
-          status === "Optional" &&
-            "bg-[var(--color-thread-off-white)] text-[var(--color-thread-gray)] border border-black/10",
-          status === "In place" &&
-            "bg-[var(--color-thread-mid-green)] text-white",
-        )}
-      >
-        {status}
-      </span>
     </div>
   );
 }

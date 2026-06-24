@@ -10,6 +10,10 @@ import { HeroQuoteCard } from "./ui/HeroQuoteCard";
 import { ActionLink } from "./ui/ActionLink";
 import { FadeInScroll } from "./ui/FadeInScroll";
 import { Button } from "./ui/Button";
+import { TimelineItem } from "./ui/TimelineItem";
+import { QuickLink } from "./ui/QuickLink";
+
+import { PlanProgressCard } from "./ui/PlanProgressCard";
 
 export default function HomePage({
   onPageChange,
@@ -96,7 +100,7 @@ export default function HomePage({
         kicker="Tuesday · Good morning"
         title="Here's where to put your energy today, Sarah."
         titleClassName="text-[4rem] leading-[4.5rem] max-w-[18ch]"
-        className="mb-24"
+        className="mb-28"
       />
 
       <div className="grid grid-cols-[1.6fr_1fr] md:gap-x-10 max-md:grid-cols-1 max-md:gap-y-14">
@@ -126,42 +130,14 @@ export default function HomePage({
 
         <div className="flex flex-col max-md:gap-y-6 md:contents">
           {/* Stat Card */}
-          <FadeInScroll delay={0.1} className="md:col-start-2 md:row-start-1 bg-[var(--hero-secondary-bg)] text-[var(--hero-secondary-text)] rounded-bl-[32px] p-7.5 flex flex-col h-full">
-            <span className="text-[0.75rem] tracking-[0.1em] uppercase opacity-70 font-medium mb-5 block flex-shrink-0">
-              This quarter's plan
-            </span>
-            <div className="flex-1 min-h-[1.5rem]"></div>
-            <div className="flex flex-col mt-auto">
-              <div className="flex items-end gap-3.5 mb-5.5">
-                <div className="font-serif text-[4rem] leading-[4.5rem] tracking-[-2.2px]">
-                  {progressValue}%
-                </div>
-                <div className="text-[1.125rem] opacity-80 leading-tight pb-[0.8rem]">
-                  {progressStatus.split(' — ')[0]} —<br />
-                  {progressStatus.split(' — ')[1]}
-                </div>
-              </div>
-              <div className="mb-5.5">
-                <ProgressBar
-                  value={progressValue}
-                  max={100}
-                  heightClass="h-3"
-                  isSecondary
-                  colorClass="bg-[var(--hero-secondary-text)]"
-                />
-              </div>
-              <div className="flex items-center gap-2 text-[0.84rem] opacity-60 border-t border-current/10 pt-4.5">
-                <Calendar className="w-4 h-4 stroke-[1.8]" />
-                <span>
-                  Next review:{" "}
-                  <strong className="opacity-100">
-                    {nextReview}
-                  </strong>
-                </span>
-              </div>
-            </div>
+          <FadeInScroll delay={0.1} className="md:col-start-2 md:row-start-1">
+            <PlanProgressCard
+              progress={progressValue}
+              statusText={progressStatus}
+              nextReview={nextReview}
+              title="This quarter's plan"
+            />
           </FadeInScroll>
-
         </div>
       </div>
 
@@ -189,6 +165,7 @@ export default function HomePage({
             progress={35}
             isFirst
             active
+            isCollapsible
           />
           <TimelineItem
             tag="Next"
@@ -196,6 +173,7 @@ export default function HomePage({
             meta={data.timeline.next.meta}
             content={data.timeline.next.content}
             progress={15}
+            isCollapsible
           />
           <TimelineItem
             tag="Later"
@@ -203,6 +181,7 @@ export default function HomePage({
             meta={data.timeline.later.meta}
             content={data.timeline.later.content}
             progress={0}
+            isCollapsible
           />
           <div className="border-b border-black/10" />
         </div>
@@ -300,104 +279,5 @@ export default function HomePage({
         )}
       </div>
     </motion.div>
-  );
-}
-
-function TimelineItem({
-  tag,
-  title,
-  meta,
-  content,
-  progress = 0,
-  active = false,
-  isFirst = false,
-}: any) {
-  const [isOpen, setIsOpen] = useState(active);
-
-  return (
-    <div
-      className={cn(
-        "border-t border-black/10 cursor-pointer group hover:bg-black/[0.01] transition-all",
-        isOpen && "bg-black/[0.01]",
-      )}
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      <div className="flex items-center gap-4 py-5.5 px-1">
-        <span
-          className={cn(
-            "text-[0.75rem] tracking-[0.1em] font-medium w-12 flex-shrink-0 uppercase",
-            active
-              ? "text-[var(--color-thread-mid-green)]"
-              : "text-[var(--color-thread-placeholder)]",
-          )}
-        >
-          {tag}
-        </span>
-        <div className="flex-1">
-          <div
-            className={cn(
-              "text-[1.18rem] font-medium tracking-tight",
-              active
-                ? "text-[var(--color-thread-heading)]"
-                : "text-[var(--color-thread-dark-slate)]",
-            )}
-          >
-            {title}
-            <div className="text-[0.8rem] text-[var(--color-thread-gray)] font-normal mt-0.5 tracking-normal">
-              {meta}
-            </div>
-          </div>
-        </div>
-        <div className="flex-shrink-0 w-[22px] h-[22px] relative">
-          <div className="absolute left-0 top-1/2 w-full h-[1.5px] bg-[var(--color-thread-dark-slate)] transition-all" />
-          <div
-            className={cn(
-              "absolute top-0 left-1/2 h-full w-[1.5px] bg-[var(--color-thread-dark-slate)] transition-all",
-              isOpen && "scale-y-0",
-            )}
-          />
-        </div>
-      </div>
-      <div
-        className={cn(
-          "overflow-hidden transition-all duration-300",
-          isOpen ? "max-h-[260px]" : "max-h-0",
-        )}
-      >
-        <div className="px-16 pb-6.5 max-md:px-0">
-          <span className="text-[0.6rem] tracking-[0.14em] uppercase text-slate-500 font-semibold mb-2 block">
-            Why this matters most
-          </span>
-          <p className="text-[0.96rem] text-slate-500 leading-relaxed max-w-[60ch]">
-            {content}
-          </p>
-          <div className="border-t border-black/10 mt-4 pt-3.5 flex items-center justify-between">
-            <span className="text-[0.78rem] text-slate-500 font-medium">
-              Plan Progress: {progress}%
-            </span>
-            <ActionLink variant="slate" as="span">
-              See details
-            </ActionLink>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function QuickLink({ label, onClick }: any) {
-  return (
-    <div
-      onClick={onClick}
-      className={cn(
-        "flex items-center gap-3.5 py-4 px-0.5 border-t border-black/10 transition-all",
-        onClick ? "cursor-pointer group" : "cursor-default opacity-50",
-      )}
-    >
-      <span className="flex-1 text-[0.96rem] font-medium group-hover:text-[var(--color-thread-mid-green)] transition-colors">
-        {label}
-      </span>
-      <ChevronRight className="w-4 h-4 text-slate-500 stroke-[1.8]" />
-    </div>
   );
 }

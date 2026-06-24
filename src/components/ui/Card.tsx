@@ -23,7 +23,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay }}
           className={baseClasses}
-          {...(props as HTMLMotionProps<'div'>)}
+          {...(props as unknown as HTMLMotionProps<'div'>)}
         />
       );
     }

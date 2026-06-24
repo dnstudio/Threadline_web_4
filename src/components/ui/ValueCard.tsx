@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
 
-interface ValueCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ValueCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'content'> {
   title: string;
   content: string | React.ReactNode;
   solid?: boolean;

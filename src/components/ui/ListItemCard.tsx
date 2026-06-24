@@ -12,7 +12,7 @@ export function ListItemCard({ children, className, ...props }: ListItemCardProp
   return (
     <div 
       className={cn(
-        "flex-1 flex items-center justify-between rounded-xl px-4 py-3.5 bg-white cursor-pointer transition-all group shadow-sm hover:shadow-md",
+        "flex-1 flex items-center justify-between rounded-xl px-4 py-3.5 bg-white cursor-pointer transition-all group",
         className
       )}
       {...props}

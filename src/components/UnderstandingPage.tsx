@@ -14,6 +14,7 @@ import { ValueCard } from "./ui/ValueCard";
 import { AreaItem } from "./ui/AreaItem";
 import { FadeInScroll } from "./ui/FadeInScroll";
 import { Button } from "./ui/Button";
+import { PageFooterCTA } from "./ui/PageFooterCTA";
 
 export default function UnderstandingPage({
   onPageChange,
@@ -66,7 +67,7 @@ export default function UnderstandingPage({
 
       {/* Strengths Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             What's going well
           </SectionLabel>
@@ -142,7 +143,7 @@ export default function UnderstandingPage({
 
       {/* Areas Affecting Section */}
       <FadeInScroll className="mb-24">
-        <div className="mb-5.5">
+        <div>
           <SectionLabel>
             What we're seeing
           </SectionLabel>
@@ -181,18 +182,11 @@ export default function UnderstandingPage({
       </FadeInScroll>
 
       {/* Forward Button */}
-      <div className="flex items-center justify-between gap-5 border-t border-black/10 pt-7.5 flex-wrap">
-        <div className="font-serif font-normal text-[1.55rem] leading-[1.34] tracking-tight text-[var(--color-thread-heading)] max-w-[24ch]">
-          Understanding what's happening is the start.
-        </div>
-        <Button
-          onClick={() => onPageChange("priorities")}
-          variant="forest"
-          className="px-5.5 py-3.5 text-[0.92rem] inline-flex items-center gap-2"
-        >
-          See what matters most <ArrowRight className="w-4 h-4 stroke-[2]" />
-        </Button>
-      </div>
+      <PageFooterCTA
+        title="Understanding what's happening is the start."
+        buttonText="See what matters most"
+        onClick={() => onPageChange("priorities")}
+      />
     </motion.div>
   );
 }
