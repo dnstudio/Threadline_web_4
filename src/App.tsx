@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { Page, Child } from './types';
+import { Page } from './types';
 import DashboardLayout from './components/DashboardLayout';
 import HomePage from './components/HomePage';
 import UnderstandingPage from './components/UnderstandingPage';
@@ -19,12 +19,6 @@ import EmergingDetailsPage from './components/EmergingDetailsPage';
 import AllChildrenPage from './components/AllChildrenPage';
 import StyleGuidePage from './components/StyleGuidePage';
 import ScrollToTop from './components/ScrollToTop';
-
-const INITIAL_CHILDREN: Child[] = [
-  { name: 'Maya', age: 9, initial: 'M' },
-  { name: 'Liam', age: 6, initial: 'L' },
-  { name: 'Sophia', age: 12, initial: 'S' }
-];
 
 import { ChildProvider } from './context/ChildContext';
 import { LockerProvider } from './context/LockerContext';
